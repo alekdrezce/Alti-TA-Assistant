@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alti TA Assistant</title>
+  <style>
+    @font-face {
+      font-family: 'FuturaNowHeadline';
+      src: url('ATAA/FuturaNowHeadline.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+  
+    body {
+  font-family: 'FuturaNowHeadline', sans-serif;
+  background-color: #f05927;
+  color: white;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden; /* Evita scroll horizontal */
+  overflow-y: auto;   /* Scroll vertical global */
+}
+  
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: none;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+  
+.container.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+  
+    /* Aplica solo a secciones que necesitan scroll */
+    .container.scrollable {
+  overflow-y: auto;
+  overflow-x: hidden; /* Oculta el scroll horizontal */
+  padding-right: 10px; /* Deja espacio entre scrollbar y campos */
+  box-sizing: content-box; /* Asegura que el padding no rompa el layout */
+}
+  
+    .logo {
+      display: block;
+      margin: 0 auto 20px auto;
+      max-width: 300px;
+    }
+  
+    .button {
+      background-color: #57595e;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .start-button {
+  width: auto;
+  padding: 12px 24px;
+  font-size: 18px;
+  margin-top: 20px;
+  align-self: center;
+}
+  
+    .button:hover {
+      background-color: #4a4f56;
+    }
+  
+    form label,
+    form select,
+    form input,
+    form textarea {
+      display: block;
+      margin: 10px 0;
+      width: 100%;
+    }
+  
+    textarea {
+      resize: vertical;
+      font-family: 'FuturaNowHeadline', sans-serif;
+      font-size: 16px;
+      padding: 10px;
+      color: #333;
+    }
+
+    #startScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Pantalla Inicial -->
+  <div class="container active" id="startScreen">
+    <img src="logo.png" alt="Logo" class="logo">
+    <button class="button start-button" id="startButton">EMPEZAR ENTREVISTA</button>
+  </div>
+
+  <!-- Sección 1: Información Inicial -->
+  <div class="container" id="section1">
+    <h2>Información Inicial</h2>
+    <form id="interviewForm">
+      <label for="taOwner">TA Owner</label>
+      <select id="taOwner" name="taOwner">
+        <option value="Alexis Cedrez">Alexis Cedrez</option>
+        <option value="Aracely Cardenas">Aracely Cardenas</option>
+        <option value="Camila Molinari">Camila Molinari</option>
+        <option value="Geraldine Solis">Geraldine Solis</option>
+        <option value="Juan Acevedo">Juan Acevedo</option>
+        <option value="Mabel Espeche">Mabel Espeche</option>
+        <option value="Sandra Lopez">Sandra Lopez</option>
+        <option value="Victoria Granados">Victoria Granados</option>
+        <option value="Wendy Galvan">Wendy Galvan</option>
+      </select>
+
+      <label for="screenshot">Screenshot Entrevista</label>
+      <input type="file" id="screenshot" name="screenshot">
+
+      <button type="button" class="button" id="nextButton1">Siguiente</button>
+    </form>
+  </div>
+
+  <!-- Sección 2: Información General -->
+  <div class="container" id="section2">
+    <h2>Información General</h2>
+    <form id="generalInfoForm">
+      <label for="fullName">Nombre completo</label>
+      <input type="text" id="fullName" name="fullName" required>
+
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Teléfono</label>
+      <input type="text" id="phone" name="phone" required>
+
+      <label for="cvLink">CV (link de OneDrive)</label>
+      <input type="text" id="cvLink" name="cvLink" required>
+
+      <button type="button" class="button" id="backButton2">Atrás</button>
+      <button type="button" class="button" id="nextButton2">Siguiente</button>
+    </form>
+  </div>
+
+  <!-- Sección 3: Observaciones Preliminares -->
+<div class="container" id="section3">
+    <h2>Observaciones Preliminares</h2>
+    <form id="observationsForm">
+  
+      <label for="punctuality">Puntualidad</label>
+      <select id="punctuality" name="punctuality">
+        <option value="Puntual">Puntual</option>
+        <option value="Impuntual">Impuntual</option>
+      </select>
+  
+      <label for="cameraUse">Uso de la cámara</label>
+      <select id="cameraUse" name="cameraUse">
+        <option value="Prendió la cámara">Prendió la cámara</option>
+        <option value="No prendió la cámara">No prendió la cámara</option>
+      </select>
+  
+      <label for="presence">Presencia personal</label>
+      <select id="presence" name="presence">
+        <option value="Buena presencia">Buena presencia</option>
+        <option value="Regular">Regular</option>
+        <option value="Mala presencia">Mala presencia</option>
+      </select>
+  
+      <label for="attitude">Actitud demostrada durante la entrevista</label>
+      <select id="attitude" name="attitude">
+        <option value="Interesado">Interesado</option>
+        <option value="Desinteresado">Desinteresado</option>
+        <option value="Neutral">Neutral</option>
+      </select>
+  
+      <label for="communication">Estilo de comunicación demostrada</label>
+      <select id="communication" name="communication">
+        <option value="Asertiva y expresiva">Asertiva y expresiva</option>
+        <option value="Clara pero reservada">Clara pero reservada</option>
+        <option value="Tímida">Tímida</option>
+        <option value="Confusa">Confusa</option>
+      </select>
+  
+      <button type="button" class="button" id="backButton3">Atrás</button>
+      <button type="button" class="button" id="nextButton3">Siguiente</button>
+    </form>
+  </div>
+
+  <!-- Sección 4: Experiencia para el Rol -->
+<div class="container scrollable" id="section4">
+    <h2>Experiencia para el Rol</h2>
+    <form id="experienceForm">
+  
+      <label for="experienceYears">Años de experiencia</label>
+      <textarea id="experienceYears" name="experienceYears" rows="8" style="width: 100%;"></textarea>
+  
+      <label for="certifications">Certificaciones</label>
+      <textarea id="certifications" name="certifications" rows="8" style="width: 100%;"></textarea>
+  
+      <label for="leadership">Experiencia como líder</label>
+      <textarea id="leadership" name="leadership" rows="8" style="width: 100%;"></textarea>
+  
+      <label for="strengths">Tecnologías en las que tiene mayor dominio (fortalezas)</label>
+      <textarea id="strengths" name="strengths" rows="8" style="width: 100%;"></textarea>
+  
+      <label for="agile">Trabajo con metodologías ágiles (Scrum, Kanban)</label>
+      <textarea id="agile" name="agile" rows="8" style="width: 100%;"></textarea>
+  
+      <button type="button" class="button" id="backButton4">Atrás</button>
+      <button type="button" class="button" id="nextButton4">Siguiente</button>
+    </form>
+  </div>
+
+  <!-- Sección 5: Interés en la Propuesta -->
+<div class="container" id="section5">
+    <h2>Interés en la Propuesta</h2>
+    <form id="interestForm">
+  
+      <label for="desiredRoles">Roles en los que le gustaría aplicar</label>
+      <textarea id="desiredRoles" name="desiredRoles" rows="3"></textarea>
+  
+      <label for="opinion">¿Qué piensa sobre la oportunidad?</label>
+      <textarea id="opinion" name="opinion" rows="8"></textarea>
+  
+      <button type="button" class="button" id="backButton5">Atrás</button>
+      <button type="button" class="button" id="nextButton5">Siguiente</button>
+    </form>
+  </div>
+
+  <!-- Sección 6: Información Adicional -->
+<div class="container" id="section6">
+    <h2>Información Adicional</h2>
+    <form id="additionalInfoForm">
+  
+      <label for="englishLevel">Nivel de inglés</label>
+      <select id="englishLevel" name="englishLevel">
+        <option value="A1">A1</option>
+        <option value="A2">A2</option>
+        <option value="B1">B1</option>
+        <option value="B2">B2</option>
+        <option value="C1">C1</option>
+        <option value="C2">C2</option>
+      </select>
+  
+      <label for="availability">Disponibilidad para sumarse a Altimetrik</label>
+      <select id="availability" name="availability">
+        <option value="Inmediata">Inmediata</option>
+        <option value="1 semana">1 semana</option>
+        <option value="2 semanas">2 semanas</option>
+        <option value="3 semanas">3 semanas</option>
+        <option value="1 mes">1 mes</option>
+        <option value="+1 mes">+1 mes</option>
+      </select>
+  
+      <label for="salary">Compensación económica pretendida</label>
+      <input type="text" id="salary" name="salary" placeholder="Ej: 2500">
+  
+      <label for="currency">Moneda</label>
+      <select id="currency" name="currency">
+        <option value="USD">USD</option>
+        <option value="COP">COP</option>
+        <option value="MXN">MXN</option>
+        <option value="UYU">UYU</option>
+      </select>
+  
+      <label for="salaryType">Tipo</label>
+      <select id="salaryType" name="salaryType">
+        <option value="Brutos">Brutos</option>
+        <option value="Netos">Netos</option>
+      </select>
+  
+      <label for="vacationPlan">¿Vacaciones planificadas en los próximos 3 meses?</label>
+      <select id="vacationPlan" name="vacationPlan">
+        <option value="Sí">Sí</option>
+        <option value="No">No</option>
+      </select>
+  
+      <button type="button" class="button" id="backButton6">Atrás</button>
+      <button type="button" class="button" id="nextButton6">Siguiente</button>
+    </form>
+  </div>
+
+  <!-- Sección 7: Conclusión Final y Resumen Ejecutivo -->
+<div class="container" id="section7">
+    <h2>Conclusión Final</h2>
+    <form id="conclusionForm">
+  
+      <label for="recommendation">Recomendación</label>
+      <select id="recommendation" name="recommendation">
+        <option value="Recomiendo al candidato">Recomiendo al candidato</option>
+        <option value="Recomendado con reservas">Recomendado con reservas</option>
+        <option value="No recomendado">No recomendado</option>
+      </select>
+  
+      <label for="motives">Motivos</label>
+      <textarea id="motives" name="motives" rows="5"></textarea>
+  
+      <label for="executiveSummary">Resumen Ejecutivo (en inglés)</label>
+      <textarea id="executiveSummary" name="executiveSummary" rows="5"></textarea>
+  
+      <button type="button" class="button" id="backButton7">Atrás</button>
+      <button type="button" class="button" id="generatePdfButton">Generar PDF</button>
+    </form>
+  </div>
+
+  <!-- Sección 8: Vista previa del PDF -->
+<div class="container" id="pdfPreview">
+    <h2>Vista Previa del PDF</h2>
+    <div style="height: 80vh;">
+      <iframe id="pdfIframe" style="width:100%; height:100%; border:none;"></iframe>
+    </div>
+    <button type="button" class="button" id="backButtonPdf">Atrás</button>
+  </div>
+
+  <!-- Contenedor oculto para generación del PDF -->
+  <div id="pdfContent" style="visibility: hidden; position: absolute; left: -9999px; padding: 40px; font-family: 'FuturaNowHeadline', sans-serif;">
+    <img src="ATAA/altimetrik.png" alt="Altimetrik Logo" style="max-width: 200px; margin-bottom: 20px;">
+    <h1 style="color: #57595e; font-size: 24px;">TA GENERAL INTERVIEW FEEDBACK</h1>
+    <div id="pdfData"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Función para mostrar una sección y ocultar las demás
+      function showSection(idToShow) {
+        const sections = document.querySelectorAll(".container");
+        sections.forEach(section => {
+          section.classList.remove("active");
+          section.style.display = "none";
+        });
+  
+        const target = document.getElementById(idToShow);
+        if (target) {
+          target.classList.add("active");
+          target.style.display = "flex";
+        }
+      }
+  
+      // Botón de inicio
+      const startButton = document.getElementById("startButton");
+      if (startButton) {
+        startButton.addEventListener("click", function () {
+          showSection("section1");
+        });
+      }
+  
+      // Navegación entre secciones (atrás / siguiente)
+      const totalSections = 7;
+      for (let i = 1; i <= totalSections; i++) {
+        const nextBtn = document.getElementById(`nextButton${i}`);
+        const backBtn = document.getElementById(`backButton${i}`);
+  
+        if (nextBtn) {
+          nextBtn.addEventListener("click", () => {
+            showSection(`section${i + 1}`);
+          });
+        }
+  
+        if (backBtn) {
+          backBtn.addEventListener("click", () => {
+            showSection(`section${i - 1}`);
+          });
+        }
+      }
+  
+      // Botón de volver desde vista previa PDF
+      const backButtonPdf = document.getElementById("backButtonPdf");
+      if (backButtonPdf) {
+        backButtonPdf.addEventListener("click", () => {
+          showSection("section7");
+        });
+      }
+  
+      // Botón de generar PDF
+      const generateBtn = document.getElementById('generatePdfButton');
+      if (generateBtn) {
+        generateBtn.addEventListener("click", function () {
+          // Mostrar sección de vista previa del PDF
+          showSection("pdfPreview");
+  
+          // Generar y mostrar el PDF (por ahora se muestra ejemplo vacío en el iframe)
+          const iframe = document.getElementById("pdfIframe");
+          if (iframe) {
+            const doc = new jsPDF();
+            doc.text("Ejemplo de PDF generado", 10, 10);
+            const blob = doc.output("blob");
+            const url = URL.createObjectURL(blob);
+            iframe.src = url;
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
